@@ -1,0 +1,35 @@
+# https://github.com/rafmagana/screenrc/blob/master/.screenrc
+
+startup_message off
+
+# if we accidentally hangup, don't be all attached when we come back. 
+autodetach on
+
+# more scrollbacks!
+defscrollback 10000
+
+# we want color in our screen
+term xterm-256color
+
+# disable use of the "alternate" terminal
+# thus allowing scrollbars to function as normal in
+# many terminal emulators! <3 it
+termcapinfo xterm* ti@:te@
+
+# have screen update terminal emulators titlebar
+termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+defhstatus "screen ^E (^Et) | $USER@^EH"
+
+# but dont print i.e. "bell in window 0" status craps
+#hardstatus off
+
+shelltitle "$ |bash"
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
+#caption always "%{=b dy}%D, %d. %M '%y %{=b dw}%c:%s %{=b dy}{ %{= dg}${USER}@%{= dr}%H %{=b dy}} %{=b d2}%l %{=b dy}%u %{=b dy} %={ %?%{= dc}%-Lw%?%{+b dy}(%{-b r}%n:%t%{+b dy})%?(%u)%?%{-dc}%?%{= dc}%+Lw%? %{=b dy}}"
+
+defflow off
+
+#rvm needs this
+shell -${SHELL}
