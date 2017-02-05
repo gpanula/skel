@@ -59,4 +59,4 @@ GIT_PROMPT_ONLY_IN_REPO=1
 # also see http://www.linuxquestions.org/questions/slackware-14/gnome-clock-411886/
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
-
+export TZ="CST6CDT"
