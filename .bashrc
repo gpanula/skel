@@ -60,6 +60,11 @@ GIT_PROMPT_ONLY_IN_REPO=1
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
+# set the shell's timezone
+# should also add the following to /etc/sudoers
+# Defaults env_keep += "TZ"
+export TZ="CST6CDT"
+
 # Fix for "X11 connection rejected because of wrong authentication."
 # when using sudo
 # NOTE: also need to add the following to /etc/sudoers
