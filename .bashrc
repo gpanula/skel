@@ -26,11 +26,14 @@ alias arin="whois -h whois.arin.net"
 alias ripe="whois -h whois.ripe.net"
 
 # set PATH to include bin in the user's home directory
-PATH="${PATH}:/usr/sbin/:/sbin:/home/${USER}/bin"
+PATH="${PATH}:/usr/sbin/:/sbin:/usr/local/bin:/usr/local/sbin:/home/${USER}/bin"
 export PATH
 
 # use vi as my EDITOR
 export EDITOR="vim"
+
+# give me a colorful vi
+alias vi="vim"
 
 # Change the window title of X terminals 
 case ${TERM} in
@@ -45,14 +48,23 @@ esac
 # We only want the git prompt info in directories that are git repos
 GIT_PROMPT_ONLY_IN_REPO=1
 
+## Try adding git info above the prompt
+## https://github.com/magicmonty/bash-git-prompt
+if [ -f ~/.bash-git-prompt/gitprompt.sh ]; then
+   GIT_PROMPT_START="\[\033[01;35m\][\u]\[\033[m\]"
+   GIT_PROMPT_END="\n\[\033[01;36m\][\h]\[\033[01;31m\]:\[\033[01;31m\][\${PWD}] \\$ \[\033[00m\]"
+   source ~/.bash-git-prompt/gitprompt.sh
+fi
+
 # Grab the local colorful bash prompt setting
 [ -f /etc/profile.d/bash_prompt ] && source /etc/profile.d/bash_prompt
 
 # configure git for us
 [ -f /etc/profile.d/set-git-info ] && source /etc/profile.d/set-git-info
 
-# enable git completion
-[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+## activate git-completion
+## ref -> http://code-worrier.com/blog/autocomplete-git/
+[ -f /etc/profile.d/git-completion.bash ] && source /etc/profile.d/git-completion.bash
 
 # locale settings
 # http://www.gentoo.org/doc/en/guide-localization.xml
@@ -70,3 +82,4 @@ export TZ="CST6CDT"
 # NOTE: also need to add the following to /etc/sudoers
 # Defaults env_keep += "DISPLAY XAUTHORIZATION XAUTHORITY"
 [ -f /home/$USER/.Xauthority ] && export XAUTHORITY=/home/$USER/.Xauthority
+
