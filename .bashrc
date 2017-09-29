@@ -83,3 +83,44 @@ export TZ="CST6CDT"
 # Defaults env_keep += "DISPLAY XAUTHORIZATION XAUTHORITY"
 [ -f /home/$USER/.Xauthority ] && export XAUTHORITY=/home/$USER/.Xauthority
 
+
+# this function lets you set which profile to use
+# from ~/.aws/credentials
+# it also updates your prompt to remind you which aws profile you are using
+function setaws() {
+    # re-import the bash prompt as a way of "resetting" it
+    # this allows for bouncing between aws accounts and keeping the prompt accurate
+    if [ -f /etc/profile.d/bash_prompt ]
+    then
+        source /etc/profile.d/bash_prompt
+    fi
+
+    export AWS_DEFAULT_PROFILE="$1"
+    export AWS_PROFILE="$1"
+
+    export PS1="\[\033[01;37m\][AWS]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_PROFILE]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_REGION]\n\[\033[01;33m\]$PS1"
+    export GIT_PROMPT_START="\[\033[01;37m\][AWS]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_PROFILE]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_REGION]"
+}
+
+
+# quickly set which aws region to use
+# also updates your prompt
+function setregion() {
+    # re-import the bash prompt as a way of "resetting" it
+    # this allows for bouncing between aws accounts and keeping the prompt accurate
+    if [ -f /etc/profile.d/bash_prompt ]
+    then
+        source /etc/profile.d/bash_prompt
+    fi
+
+    export AWS_DEFAULT_REGION="$1"
+    export PS1="\[\033[01;37m\][AWS]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_PROFILE]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_REGION]\n\[\033[01;33m\]$PS1"
+    export GIT_PROMPT_START="\[\033[01;37m\][AWS]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_PROFILE]\[\033[01;31m\]:\[\033[01;32m\][$AWS_DEFAULT_REGION]"
+}
+
+
+# enable terraform logging
+# https://www.terraform.io/docs/internals/debugging.html
+alias tflog='export TF_LOG=INFO && export TF_LOG_PATH=terraform.log'
+
+
