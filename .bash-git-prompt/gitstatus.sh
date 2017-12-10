@@ -72,6 +72,10 @@ if [[ "$branch" == *"Initial commit on"* ]]; then
   IFS=" " read -ra fields <<< "$branch"
   branch="${fields[3]}"
   remote="_NO_REMOTE_TRACKING_"
+elif [[ "$branch" == *"No commits yet on"* ]]; then
+  IFS=" " read -ra fields <<< "$branch"
+  branch="${fields[4]}"
+  remote="_NO_REMOTE_TRACKING_"
 elif [[ "$branch" == *"no branch"* ]]; then
   tag=$( git describe --tags --exact-match )
   if [[ -n "$tag" ]]; then
@@ -86,11 +90,11 @@ else
     IFS="[,]" read -ra remote_fields <<< "${branch_fields[1]}"
     upstream="${remote_fields[0]}"
     for remote_field in "${remote_fields[@]}"; do
-      if [[ "$remote_field" == *ahead* ]]; then
+      if [[ "$remote_field" == "ahead "* ]]; then
         num_ahead=${remote_field:6}
         ahead="_AHEAD_${num_ahead}"
       fi
-      if [[ "$remote_field" == *behind* ]]; then
+      if [[ "$remote_field" == "behind "* ]] || [[ "$remote_field" == " behind "* ]]; then
         num_behind=${remote_field:7}
         behind="_BEHIND_${num_behind# }"
       fi
