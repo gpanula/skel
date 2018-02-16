@@ -7,6 +7,16 @@ set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 "set ai			" always set autoindenting on
 set backup		" keep a backup file
+set backupdir=$HOME/.vimbackup//    " put backup files in ~/.vimbackup
+" create the backup directory
+silent execute '!mkdir -p $HOME/.vimbackup'
+
+" found this bit at
+" https://github.com/kaleb/vim-files/blob/master/xdg.vim#L19
+" it names the backup file with the directory the file resides in.  neat!
+" Double slash does not actually work for backupdir, here's a fix
+au BufWritePre * let &backupext='@'.substitute(substitute(substitute(expand('%:p:h'), '/', '%', 'g'), '\', '%', 'g'), ':', '', 'g')
+
 set viminfo='20,\"50	" read/write a .viminfo file, don't store more
 			" than 50 lines of registers
 set history=50		" keep 50 lines of command line history
