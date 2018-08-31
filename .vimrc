@@ -7,9 +7,15 @@ set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 "set ai			" always set autoindenting on
 set backup		" keep a backup file
-set backupdir=$HOME/.vimbackup//    " put backup files in ~/.vimbackup
+set backupdir=~/.vimbackup//    " put backup files in ~/.vimbackup
 " create the backup directory
-silent execute '!mkdir -p $HOME/.vimbackup'
+silent execute '!mkdir -p ~/.vimbackup'
+
+" don't write swp files in the working directory
+" ref: https://stackoverflow.com/questions/1636297/how-to-change-the-folder-path-for-swp-files-in-vim#21026618
+set directory=~/.vimswapfiles//
+" create the swp directory
+silent execute '!mkdir -p ~/.vimswapfiles'
 
 " found this bit at
 " https://github.com/kaleb/vim-files/blob/master/xdg.vim#L19
