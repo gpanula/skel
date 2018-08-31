@@ -13,6 +13,25 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+
 # User specific aliases and functions
 
 # setup some aliases
@@ -24,6 +43,34 @@ alias lart="ls --color -lart"
 alias larth="ls --color -larth"
 alias arin="whois -h whois.arin.net"
 alias ripe="whois -h whois.ripe.net"
+
+# useful xfreerdp alias
+alias xfreerdp="xfreerdp /size:1366x768 +compression -wallpaper -themes +clipboard +smart-sizing"
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# give a fortune
+if [ -x /usr/games/fortune ]; then
+     /usr/games/fortune
+fi
 
 # set PATH to include bin in the user's home directory
 PATH="${PATH}:/usr/sbin/:/sbin:/usr/local/bin:/usr/local/sbin:/home/${USER}/bin"
@@ -83,6 +130,8 @@ export TZ="CST6CDT"
 # Defaults env_keep += "DISPLAY XAUTHORIZATION XAUTHORITY"
 [ -f /home/$USER/.Xauthority ] && export XAUTHORITY=/home/$USER/.Xauthority
 
+# useful aws cli reference
+# http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#config-settings-and-precedence
 
 # this function lets you set which profile to use
 # from ~/.aws/credentials
@@ -123,4 +172,7 @@ function setregion() {
 # https://www.terraform.io/docs/internals/debugging.html
 alias tflog='export TF_LOG=INFO && export TF_LOG_PATH=terraform.log'
 
+# always update source when running terragrunt
+# https://github.com/gruntwork-io/terragrunt/pull/387
+export TERRAGRUNT_SOURCE_UPDATE=true
 
