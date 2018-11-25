@@ -28,7 +28,7 @@ fi
 
 # dynamic motd
 # ref: https://github.com/alexconst/dynamotd
-if [ -x /usr/local/bin/dynamotd ]
+if [ -x /usr/local/bin/dynamotd ]; then
 	/usr/local/bin/dynamotd
 fi
 
