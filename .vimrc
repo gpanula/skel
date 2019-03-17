@@ -2,7 +2,7 @@ if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
    set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-colo elflord		" load elflord color scheme
+colo molokai		" load molokai color scheme https://github.com/tomasr/molokai
 set nocompatible	" Use Vim defaults (much better!)
 set bs=indent,eol,start		" allow backspacing over everything in insert mode
 "set ai			" always set autoindenting on
